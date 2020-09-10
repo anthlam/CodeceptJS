@@ -107,4 +107,48 @@ RunRerun
       done();
     });
   });
+
+  it('should display success run if test was fail, in BeforeSuite, one time of two attempts and 3 reruns', (done) => {
+    exec(`FAIL_ATTEMPT=0  ${codecept_run_config('codecept.conf.fail_test.js', '@RunRerun - fail BeforeSuite')} --debug`, (err, stdout) => {
+      stdout.should.include('Process run 1 of max 3, success runs 1/2');
+      stdout.should.include('Fail run 2 of max 3, success runs 1/2');
+      stdout.should.include('Process run 3 of max 3, success runs 2/2');
+      stdout.should.not.include('Flaky tests detected!');
+      assert(!err);
+      done();
+    });
+  });
+
+  it('should display success run if test was fail, in Before, one time of two attempts and 3 reruns', (done) => {
+    exec(`FAIL_ATTEMPT=0  ${codecept_run_config('codecept.conf.fail_test.js', '@RunRerun - fail BeforeEach')} --debug`, (err, stdout) => {
+      stdout.should.include('Process run 1 of max 3, success runs 1/2');
+      stdout.should.include('Fail run 2 of max 3, success runs 1/2');
+      stdout.should.include('Process run 3 of max 3, success runs 2/2');
+      stdout.should.not.include('Flaky tests detected!');
+      assert(!err);
+      done();
+    });
+  });
+
+  it('should display success run if test was fail, in AfterSuite, one time of two attempts and 3 reruns', (done) => {
+    exec(`FAIL_ATTEMPT=0  ${codecept_run_config('codecept.conf.fail_test.js', '@RunRerun - fail AfterSuite')} --debug`, (err, stdout) => {
+      stdout.should.include('Process run 1 of max 3, success runs 1/2');
+      stdout.should.include('Fail run 2 of max 3, success runs 1/2');
+      stdout.should.include('Process run 3 of max 3, success runs 2/2');
+      stdout.should.not.include('Flaky tests detected!');
+      assert(!err);
+      done();
+    });
+  });
+
+  it('should display success run if test was fail, in Before, one time of two attempts and 3 reruns', (done) => {
+    exec(`FAIL_ATTEMPT=0  ${codecept_run_config('codecept.conf.fail_test.js', '@RunRerun - fail AfterEach')} --debug`, (err, stdout) => {
+      stdout.should.include('Process run 1 of max 3, success runs 1/2');
+      stdout.should.include('Fail run 2 of max 3, success runs 1/2');
+      stdout.should.include('Process run 3 of max 3, success runs 2/2');
+      stdout.should.not.include('Flaky tests detected!');
+      assert(!err);
+      done();
+    });
+  });
 });
